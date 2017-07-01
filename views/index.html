@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body ng-app='bookApp'>
+<div ng-controller='homeController'>
+  <div>
+    <h3 style="margin: 5px"> Welcome {{user.email}}</h3>
+  </div>
+  <div class="container col-md-10">
+    <ul>
+      <div class="book" ng-repeat='book in booksArray'>
+        <li id="book" class="col-md-6">
+          <legend>
+            <img id="book_img" ng-src="{{book.url}}"><br>
+            ISBN:&nbsp{{book.ISBN}} </br> <img ng-src="{{book.likeImage}}" ng-click="likeBook(book)" >
+          </legend>
+        </li>
+      </div>
+    </ul>
+  </div>
+  <div class="recommendation col-md-2">
+    <h4 class="recommendation-list-heading">You may also like:</h4>
+    <ul>
+        <div id="recomm_book_div" ng-repeat="recomm in recommBooks">
+          <li>
+            <img id="rec_book_img" ng-src="{{recomm.url}}"><br>
+            ISBN:&nbsp{{recomm.ISBN}}
+            <hr>
+          </li>
+        </div>
+    </ul>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src = './app.js'></script>
+</html>
