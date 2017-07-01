@@ -34,12 +34,16 @@ app.controller('homeController', function($scope, $http){
     $http.get('/api/recommendation')
     .then(function(response){
       var books = response.data;
-      console.log(books);
-      books.forEach(function(book){
-        book.ISBN = book.recomm.ISBN;
-        book.url = "http://covers.openlibrary.org/b/isbn/"+book.ISBN+"-S.jpg";
-        $scope.recommBooks.push(book);
-      });
+      if (books.length) {
+          books.forEach(function(book){
+          book.ISBN = book.recomm.ISBN;
+          book.url = "http://covers.openlibrary.org/b/isbn/"+book.ISBN+"-S.jpg";
+          $scope.recommBooks.push(book);
+          $scope.recommBook ="";
+        });
+      } else {
+        $scope.recommBook = "No recommendation! Like some books.";
+      }
     });
   }
 

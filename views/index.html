@@ -8,8 +8,13 @@
 </head>
 <body ng-app='bookApp'>
 <div ng-controller='homeController'>
-  <div>
-    <h3 style="margin: 5px"> Welcome {{user.email}}</h3>
+  <div style="margin: 5px;">
+    <div class="col-md-10">
+      <p>Welcome <%= username %> !</p>
+    </div>
+    <div style="text-align: end" class="col-md-2">
+      <p><a href="/logout">Logout</a></p>
+    </div>
   </div>
   <div class="container col-md-10">
     <ul>
@@ -34,6 +39,7 @@
           </li>
         </div>
     </ul>
+    <p>{{recommBook}}</p>
   </div>
 </div>
 </body>

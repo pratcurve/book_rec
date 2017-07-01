@@ -18,10 +18,12 @@ exports.postLogin = function(req, res){
           res.send(err)
         } 
         req.session.user_id = user._id;
+        req.session.username = req.body.username;
         res.redirect('/');
       })
     } else{
       req.session.user_id = user._id;
+      req.session.username = req.body.username;
       res.redirect('/');
     }
   });

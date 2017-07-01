@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 
 exports.index = function(req, res) {
-  res.render('index.html');
+  res.render('index.html', {username: req.session.username});
   res.end();
 }
 
