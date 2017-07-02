@@ -5,24 +5,23 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 
+_.once(csvParser);
+
 exports.index = function(req, res) {
   res.render('index.html', {username: req.session.username});
   res.end();
 }
 
 exports.getBooks = function(req, res){
-  csvParser(function(err, data){
+  var booksInDb = [];
+  Books.find({}, function(err, books){
     if (err) {
       res.send(err);
-      res.end();
     }
-    if (saveBooks(data)) {
-      res.json(data);
-      res.end();
-    } else {
-      res.send("There is some problem! We are working on it.");
-      res.end();
-    }
+    books.forEach(function(book){
+      booksInDb.push(book.ISBN);
+    });
+    res.json(booksInDb);
   });
 }
 
@@ -113,7 +112,7 @@ var csvParser = function(callback) {
       if (err) {
         console.log(err);
       }
-      callback(err, jsonArray);
+      saveBooks(jsonArray);
     });
 }
 

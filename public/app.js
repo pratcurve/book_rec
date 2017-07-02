@@ -3,13 +3,15 @@ app.controller('homeController', function($scope, $http){
   $scope.booksArray = [];
   $http.get('/api/books')
   .then(function(response){
-    var books = response.data
-    books.forEach(function(book){
+    var booksInDb = response.data
+    booksInDb.forEach(function(bookInDb){
+      var book = {};
+      book.ISBN = bookInDb;
       // bookDetails.coverUrl = "http://covers.openlibrary.org/b/isbn/" + book.ISBN + "-M.jpg";
       book.url = "http://covers.openlibrary.org/b/isbn/"+book.ISBN+"-M.jpg";
       book.likeImage = "/unlike_32.png";
       $scope.booksArray.push(book);
-    })
+    });
     getLikedBooks();
     recommendation();
     // getBookDetails();
@@ -67,7 +69,6 @@ app.controller('homeController', function($scope, $http){
     $scope.booksArray.forEach(function(book){
       $http.get("http://isbndb.com/api/v2/json/FVSCO9FS/book/" + book.ISBN)
       .then(function(response){
-        console.log(response)
       })
     })
   }

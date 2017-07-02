@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname+'/public'));
 app.use(session({secret:'rec', httpOnly: false}));
 
-mongoose.connect('mongodb://localhost:27017/book_rec', function(err){
+mongoose.connect('mongodb://localhost:27017/book_rec', {server:{poolSize:5}}, function(err){
   if (err) {
     console.log("connection:" + err);
   }
