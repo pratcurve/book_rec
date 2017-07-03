@@ -47,7 +47,6 @@ var createUser = function(email, callback){
     }, function(err, user){
       if (err) {
       callback(true, null);
-      mongoose.connection.close();
       } 
       callback(false, user);
  });

@@ -5,9 +5,8 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 
-_.once(csvParser);
-
 exports.index = function(req, res) {
+  init();
   res.render('index.html', {username: req.session.username});
   res.end();
 }
@@ -16,7 +15,9 @@ exports.getBooks = function(req, res){
   var booksInDb = [];
   Books.find({}, function(err, books){
     if (err) {
-      res.send(err);
+      res.status(404).send("Working on problem.");
+      res.end();
+      return;
     }
     books.forEach(function(book){
       booksInDb.push(book.ISBN);
@@ -55,6 +56,7 @@ exports.getLikeBook = function(req, res){
               if (err) {
                 res.send(err);
               }res.json("done");
+              res.end();
             });
          }); 
         });           
@@ -100,9 +102,10 @@ var saveBooks = function(books) {
 }
 
 
-var csvParser = function(callback) {
+var init = _.once(function() {
   const filePath = 'isbn.csv';
   var jsonArray = [];
+  console.log("once only");
   csv().
     fromFile(filePath)
     .on('json', function(csvRow){
@@ -114,7 +117,7 @@ var csvParser = function(callback) {
       }
       saveBooks(jsonArray);
     });
-}
+});
 
 // calculate similarity index of the user signed in with all the other users 
 var updateSimilarity = function(others, user, callback) {
@@ -193,7 +196,7 @@ var updateRecommendation = function(others, user_id, callback){
           {'_id': user_id},
           {$push:{'recomm':{$each: finalRecomm}}}, function(err, UpdatedRecomm){
           if (err) {
-            console.log(err)
+            console.log(err);
           } callback(false, UpdatedRecomm);
         });
       });
