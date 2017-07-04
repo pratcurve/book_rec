@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./login.css">
 </head>
-<body>
+<body style="background-color: #f8f8ff">
   <div class="container">
     <form  method="post" class="form-control-group" action="/login">
         <legend>Sign In</legend>
@@ -20,13 +20,4 @@
     <p id="error"></p>
   </div>
 </body>
-<script type="text/javascript">
-  function onLogin(){
-  var email = document.getElementById('username').value;
-  if (email.length < 4) {
-    document.getElementById("error").innerHtml = "Please Enter valid mail Id";
-    return false;
-  } return true;
-}
-</script>
 </html>
